@@ -30,7 +30,7 @@ function getStartRow(name, spreadsheetId) {
 
     var values = range.getValues();
 
-    if (values[0][0] === name){
+    if (values[0][0].toUpperCase() == name){
 //      console.log("found: " + values[0][0]);
       return row_from;
     }
@@ -55,7 +55,7 @@ function getEndRow(name, spreadsheetId) {
   for(var i = start_row; i < sheet.getMaxRows(); i++){
     var range = sheet.getRange(i, 1);
     var values = range.getValues();
-    if (values[0][0] === name){
+    if (values[0][0].toUpperCase() == name){
       start_row+=1;
     }    
   }

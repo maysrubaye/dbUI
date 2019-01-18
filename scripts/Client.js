@@ -50,7 +50,7 @@ function getRow(row) {
 function getRange(row) {
   
   var props = app.currentPage.properties;
-  var name = props.Name;
+  var name = props.Name.toUpperCase();
 
   google.script.run.withSuccessHandler(function(result1) {
     google.script.run.withSuccessHandler(function(result2) {
