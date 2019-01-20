@@ -2,13 +2,14 @@
  * current row and final row of the specified name globally know
  */
 var CURR_ROW = 0;
+var START_ROW = 0;
 var END_ROW = 0;
-
 
 /**
  * ID of spreadsheet with sample data.
  */
-var SPREADSHEET_ID = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+//var SPREADSHEET_ID = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+var SPREADSHEET_ID = '19kcAFdRSmJM9_LG-Tk5uqM3vzY3y700Du4Rt72iBie0';
 
 
 /**
@@ -23,7 +24,7 @@ function onPageAttach(page) {
 
 
 
-function getRow(row) {
+function getRow(row, campaign) {
     var props = app.currentPage.properties;
 //  console.log("from client getRow: "+row);
 
@@ -39,48 +40,48 @@ function getRow(row) {
     props.ContactOption = values[0][5];
     props.CalleeNote = values[0][6];
     props.ContactDate = "";
+    //console.log((values[0]));
 //*/
     
-  }).getRow(SPREADSHEET_ID, row);
+  }).getRow(SPREADSHEET_ID, row, campaign);
 }
 
 
 
-
-function getRange(row) {
+function getRange(row) { 
   
   var props = app.currentPage.properties;
   var name = props.Name.toUpperCase();
-
+   
   google.script.run.withSuccessHandler(function(result1) {
     google.script.run.withSuccessHandler(function(result2) {
 //      console.log(result1);      
 //      console.log(result2);
       
       CURR_ROW = result1;
-      END_ROW = result2;
+      START_ROW = result2.start;
+      END_ROW = result2.end;
       row = parseInt(result1);
       var e = parseInt(result2);
-//      console.log("curr: " + CURR_ROW + " END: " + END_ROW + " row: " + row);
-      getRow(CURR_ROW);
+      console.log("start: " + START_ROW + " END: " + END_ROW + " row: " + row + "current: "+CURR_ROW);
+      getRow(CURR_ROW, props.ChosenCampaign); 
                                          
-    }).getEndRow(name, SPREADSHEET_ID);
-  }).getStartRow(name, SPREADSHEET_ID);
+    }).getEndRow(name, SPREADSHEET_ID, props.ChosenCampaign);
+  }).getStartRow(name, SPREADSHEET_ID, props.ChosenCampaign);
 
 }
-
 
 
 /*
 * loads next row of spreadsheet
 */
 function Next() {
-
-  if(CURR_ROW < END_ROW) {
+  var props = app.currentPage.properties;
+  if(CURR_ROW < END_ROW-1) {
      CURR_ROW += 1;  
-//    console.log("curr from next: " + CURR_ROW);
+    //console.log("curr from next: " + CURR_ROW + "end: "+END_ROW);
   }
-  getRow(CURR_ROW);
+  getRow(CURR_ROW, props.ChosenCampaign);
 }
 
 
@@ -88,17 +89,18 @@ function Next() {
 * loads previous row of spreadsheet
 */
 function Prev() { 
-  
-  if(CURR_ROW <= END_ROW && CURR_ROW > 2) {
+  var props = app.currentPage.properties;
+  if(CURR_ROW <= END_ROW && CURR_ROW > START_ROW) {
     CURR_ROW-=1;
-    getRow(CURR_ROW);
+    getRow(CURR_ROW, props.ChosenCampaign);
   }
   
 }
 
 function setCell(cellRange, value) {
+  var props = app.currentPage.properties;
   google.script.run.withSuccessHandler(function() { 
-  }).setCellValue(SPREADSHEET_ID, cellRange, value);
+  }).setCellValue(SPREADSHEET_ID, props.ChosenCampaign, cellRange, value);
 }
 
 
