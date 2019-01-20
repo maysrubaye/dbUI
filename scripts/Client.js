@@ -8,9 +8,13 @@ var END_ROW = 0;
 /**
  * ID of spreadsheet with sample data.
  */
-//var SPREADSHEET_ID = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
-var SPREADSHEET_ID = '19kcAFdRSmJM9_LG-Tk5uqM3vzY3y700Du4Rt72iBie0';
+var SPREADSHEET_ID = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
 
+
+/*
+* Campaign chosen by caller/texter.
+*/
+var CHOSEN_CAMPAIGN = "";
 
 /**
  * Page attach event handler.
@@ -52,7 +56,8 @@ function getRange(row) {
   
   var props = app.currentPage.properties;
   var name = props.Name.toUpperCase();
-   
+  CHOSEN_CAMPAIGN = props.ChosenCampaign;
+    
   google.script.run.withSuccessHandler(function(result1) {
     google.script.run.withSuccessHandler(function(result2) {
 //      console.log(result1);      
@@ -64,10 +69,10 @@ function getRange(row) {
       row = parseInt(result1);
       var e = parseInt(result2);
       console.log("start: " + START_ROW + " END: " + END_ROW + " row: " + row + "current: "+CURR_ROW);
-      getRow(CURR_ROW, props.ChosenCampaign); 
+      getRow(CURR_ROW, CHOSEN_CAMPAIGN); 
                                          
-    }).getEndRow(name, SPREADSHEET_ID, props.ChosenCampaign);
-  }).getStartRow(name, SPREADSHEET_ID, props.ChosenCampaign);
+    }).getEndRow(name, SPREADSHEET_ID, CHOSEN_CAMPAIGN);
+  }).getStartRow(name, SPREADSHEET_ID, CHOSEN_CAMPAIGN);
 
 }
 
@@ -76,12 +81,11 @@ function getRange(row) {
 * loads next row of spreadsheet
 */
 function Next() {
-  var props = app.currentPage.properties;
   if(CURR_ROW < END_ROW-1) {
      CURR_ROW += 1;  
     //console.log("curr from next: " + CURR_ROW + "end: "+END_ROW);
   }
-  getRow(CURR_ROW, props.ChosenCampaign);
+  getRow(CURR_ROW, CHOSEN_CAMPAIGN);
 }
 
 
@@ -89,18 +93,16 @@ function Next() {
 * loads previous row of spreadsheet
 */
 function Prev() { 
-  var props = app.currentPage.properties;
   if(CURR_ROW <= END_ROW && CURR_ROW > START_ROW) {
     CURR_ROW-=1;
-    getRow(CURR_ROW, props.ChosenCampaign);
+    getRow(CURR_ROW, CHOSEN_CAMPAIGN);
   }
   
 }
 
 function setCell(cellRange, value) {
-  var props = app.currentPage.properties;
   google.script.run.withSuccessHandler(function() { 
-  }).setCellValue(SPREADSHEET_ID, props.ChosenCampaign, cellRange, value);
+  }).setCellValue(SPREADSHEET_ID, CHOSEN_CAMPAIGN, cellRange, value);
 }
 
 
