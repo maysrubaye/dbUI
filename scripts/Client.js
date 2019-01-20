@@ -10,7 +10,6 @@ var END_ROW = 0;
  */
 var SPREADSHEET_ID = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
 
-
 /*
 * Campaign chosen by caller/texter.
 */
