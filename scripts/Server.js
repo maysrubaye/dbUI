@@ -31,7 +31,6 @@ function getStartRow(name, spreadsheetId) {
     var values = range.getValues();
 
     if (values[0][0].toUpperCase() == name){
-//      console.log("found: " + values[0][0]);
       return row_from;
     }
   }
@@ -70,12 +69,10 @@ function getEndRow(name, spreadsheetId) {
  * @return {!Array<string>}  an array of all the row data.
  */
 function getRow(spreadsheetId, row) {
-//  console.log("server getRow: "+row);
   var ss = SpreadsheetApp.openById(spreadsheetId);
   var sheet = ss.getSheets()[0];
-  var range = sheet.getRange(row, 2, 1, 7);
+  var range = sheet.getRange(row, 2, 1, 8);
   var values = range.getValues();
-//  console.log(values);
   return values;
 }
 
@@ -92,7 +89,5 @@ function getRow(spreadsheetId, row) {
  */
 function setCellValue(spreadsheetId, cellRange, value) {
   var range = getRange_(spreadsheetId, cellRange);
-//  console.log("server range:" + cellRange);
-//  console.log("server value: " + value);
   range.setValue(value);
 }
