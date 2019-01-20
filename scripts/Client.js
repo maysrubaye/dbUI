@@ -8,9 +8,7 @@ var END_ROW = 0;
 /**
  * ID of spreadsheet with sample data.
  */
-//var SPREADSHEET_ID = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
-var SPREADSHEET_ID = '19kcAFdRSmJM9_LG-Tk5uqM3vzY3y700Du4Rt72iBie0';
-
+var SPREADSHEET_ID = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
 
 /**
  * Page attach event handler.
