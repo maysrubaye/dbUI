@@ -27,7 +27,7 @@ function onPageAttach(page) {
 
 
 
-function getRow(row, campaign) {
+function getRow(row) {
     var props = app.currentPage.properties;
 //  console.log("from client getRow: "+row);
 
@@ -46,7 +46,7 @@ function getRow(row, campaign) {
     //console.log((values[0]));
 //*/
     
-  }).getRow(SPREADSHEET_ID, row, campaign);
+  }).getRow(SPREADSHEET_ID, row, CHOSEN_CAMPAIGN);
 }
 
 
@@ -63,8 +63,8 @@ function getRange(row) {
 //      console.log(result2);
       
       CURR_ROW = result1;
-      START_ROW = result2.start;
-      END_ROW = result2.end;
+      START_ROW = result1;
+      END_ROW = result2;
       row = parseInt(result1);
       var e = parseInt(result2);
       console.log("start: " + START_ROW + " END: " + END_ROW + " row: " + row + "current: "+CURR_ROW);

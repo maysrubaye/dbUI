@@ -49,8 +49,7 @@ function getStartRow(name, spreadsheetId, campaign) {
  */
 function getEndRow(name, spreadsheetId, campaign) {
   var start_row = getStartRow(name, spreadsheetId, campaign);
-  var interval = 0;
-  
+    
   var ss = SpreadsheetApp.openById(spreadsheetId);
   var sheet = ss.getSheetByName(campaign);
   
@@ -58,10 +57,10 @@ function getEndRow(name, spreadsheetId, campaign) {
     var range = sheet.getRange(i, 1);
     var values = range.getValues();
     if (values[0][0].toUpperCase() == name){
-      interval+=1;
+      start_row+=1;
     }    
   }
-  return {'start':start_row,'end':start_row + interval};
+  return start_row;
 }
 
 
