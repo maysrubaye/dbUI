@@ -2,14 +2,18 @@
  * current row and final row of the specified name globally know
  */
 var CURR_ROW = 0;
+var START_ROW = 0;
 var END_ROW = 0;
-
 
 /**
  * ID of spreadsheet with sample data.
  */
 var SPREADSHEET_ID = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
 
+/*
+* Campaign chosen by caller/texter.
+*/
+var CHOSEN_CAMPAIGN = "";
 
 /**
  * Page attach event handler.
@@ -35,43 +39,41 @@ function getRow(row) {
     props.ContactOption = values[0][5];
     props.CalleeNote = values[0][6];
     props.ContactDate = (new Date(values[0][7]));
-
-  }).getRow(SPREADSHEET_ID, row);
+  }).getRow(SPREADSHEET_ID, row, CHOSEN_CAMPAIGN);
 }
 
 
 
-
-function getRange(row) {
+function getRange(row) { 
   
   var props = app.currentPage.properties;
   var name = props.Name.toUpperCase();
-
+  CHOSEN_CAMPAIGN = props.ChosenCampaign;
+    
   google.script.run.withSuccessHandler(function(result1) {
     google.script.run.withSuccessHandler(function(result2) {
 
       CURR_ROW = result1;
+      START_ROW = result1;
       END_ROW = result2;
       row = parseInt(result1);
       var e = parseInt(result2);
       getRow(CURR_ROW);
                                          
-    }).getEndRow(name, SPREADSHEET_ID);
-  }).getStartRow(name, SPREADSHEET_ID);
+    }).getEndRow(name, SPREADSHEET_ID, CHOSEN_CAMPAIGN);
+  }).getStartRow(name, SPREADSHEET_ID, CHOSEN_CAMPAIGN);
 
 }
-
 
 
 /*
 * loads next row of spreadsheet
 */
 function Next() {
-
-  if(CURR_ROW < END_ROW) {
+  if(CURR_ROW < END_ROW-1) {
      CURR_ROW += 1;  
   }
-  getRow(CURR_ROW);
+  getRow(CURR_ROW, CHOSEN_CAMPAIGN);
 }
 
 
@@ -79,17 +81,16 @@ function Next() {
 * loads previous row of spreadsheet
 */
 function Prev() { 
-  
-  if(CURR_ROW <= END_ROW && CURR_ROW > 2) {
+  if(CURR_ROW <= END_ROW && CURR_ROW > START_ROW) {
     CURR_ROW-=1;
-    getRow(CURR_ROW);
+    getRow(CURR_ROW, CHOSEN_CAMPAIGN);
   }
   
 }
 
 function setCell(cellRange, value) {
   google.script.run.withSuccessHandler(function() { 
-  }).setCellValue(SPREADSHEET_ID, cellRange, value);
+  }).setCellValue(SPREADSHEET_ID, CHOSEN_CAMPAIGN, cellRange, value);
 }
 
 
