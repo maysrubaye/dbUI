@@ -32,7 +32,6 @@ function getStartRow(name, spreadsheetId, campaign) {
     var values = range.getValues();
 
     if (values[0][0].toUpperCase() == name){
-//      console.log("found: " + values[0][0]);
       return row_from;
     }
   }
@@ -71,11 +70,9 @@ function getEndRow(name, spreadsheetId, campaign) {
  * @return {!Array<string>}  an array of all the row data.
  */
 function getRow(spreadsheetId, row, campaign) { 
-//  console.log("server getRow: "+row);
   var ss = SpreadsheetApp.openById(spreadsheetId);
-  
   var sheet = ss.getSheetByName(campaign); 
-  var range = sheet.getRange(row, 2, 1, 7);
+  var range = sheet.getRange(row, 2, 1, 8);
   var values = range.getValues();
   return values;
 }
@@ -93,7 +90,5 @@ function getRow(spreadsheetId, row, campaign) {
  */
 function setCellValue(spreadsheetId, sheetName, cellRange, value) {
   var range = getRange_(spreadsheetId, sheetName, cellRange);
-//  console.log("server range:" + cellRange);
-//  console.log("server value: " + value);
   range.setValue(value);
 }
