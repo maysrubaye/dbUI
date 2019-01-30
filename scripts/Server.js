@@ -34,6 +34,7 @@ function getStartRow(name, spreadsheetId, campaign) {
     if (values[0][0].toUpperCase() == name){
       return row_from;
     }
+      
   }
 }
 
@@ -57,7 +58,7 @@ function getEndRow(name, spreadsheetId, campaign) {
     var values = range.getValues();
     if (values[0][0].toUpperCase() == name){
       start_row+=1;
-    }    
+    }
   }
   return start_row;
 }
@@ -92,3 +93,7 @@ function setCellValue(spreadsheetId, sheetName, cellRange, value) {
   var range = getRange_(spreadsheetId, sheetName, cellRange);
   range.setValue(value);
 }
+
+
+
+
