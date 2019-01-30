@@ -1,8 +1,0 @@
-{
-  "applicationTimeZone": "Etc/GMT",
-  "executionMode": "USER",
-  "globalCss": ".disabledLink {\n  pointer-events: none;\n  cursor: default;\n  color: rgba(0, 0, 0, 0.26);\n}\n\n.app-dbUI-SpreadsheetPanel,\n.app-dbUI-ActionPanel {\n  overflow: visible !important;\n}",
-  "groups": [],
-  "initialViewKey": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-  "templateKey": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-}
